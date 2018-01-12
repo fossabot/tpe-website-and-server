@@ -12,11 +12,11 @@ const TEXT_NAMES = [
 ];
 
 
-function bulkReplace(retStr, obj) {
-    for (let x in obj) {
-        retStr = retStr.replace(x, obj[x]);
-    }
-    return retStr;
+function bulkReplace(retStr) {
+    return retStr
+        .replace(/ ([,.);:])/g, "$1")
+        .replace(/\( /g, "(")
+        .replace(/\s?’\s?/g, "'")
 }
 
 class App extends Component {
@@ -65,7 +65,7 @@ class Markov extends Component {
     }
 
     static cleanText(someText) {
-        return bulkReplace(someText, {" ,": ",", " .": ".", " ’ ": "'", "\( ": "\(", " \)": "\)"})
+        return bulkReplace(someText)
     }
 
     getText(completeSentence) {
